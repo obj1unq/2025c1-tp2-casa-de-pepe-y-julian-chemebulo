@@ -1,0 +1,32 @@
+import casa.*
+import cosas.*
+
+describe "Casa de Pepe y Julián" {
+
+    method initialize(){
+        casaDePepeYJulian.comprar(heladera)
+        casaDePepeYJulian.comprar(cama)
+        casaDePepeYJulian.comprar(plancha)
+    }
+
+    test "1er test planteado en la consigna" {
+        assert.equals([heladera, cama, plancha], casaDePepeYJulian.cosasCompradas())
+        assert.equals(3, casaDePepeYJulian.cantidadDeCosasCompradas())
+        assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
+        assert.that(casaDePepeYJulian.tieneAlgun(mueble))
+
+        assert.notThat(casaDePepeYJulian.tieneAlgun(comida)) 
+        assert.that(casaDePepeYJulian.vieneDeComprar(electrodomestico))      
+        assert.notThat(casaDePepeYJulian.vieneDeComprar(mueble))
+        assert.that(casaDePepeYJulian.esDerrochona())
+        
+        assert.equals([heladera, plancha], casaDePepeYJulian.comprados(electrodomestico))      
+        assert.equals([cama], casaDePepeYJulian.comprados(mueble))      
+        assert.equals([], casaDePepeYJulian.comprados(comida))
+        assert.notThat(casaDePepeYJulian.malaEpoca())
+        
+        assert.equals([tiraDeAsado, paqueteDeFideos], casaDePepeYJulian.queFaltaComprar([tiraDeAsado, plancha, paqueteDeFideos]))
+        assert.that(casaDePepeYJulian.faltaComida())
+        assert.equals(#{electrodomestico, mueble}, casaDePepeYJulian.categoriasCompradas())
+    }
+}
