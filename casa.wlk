@@ -1,7 +1,7 @@
 import cosas.* 
 
 object casaDePepeYJulian {
-    const cosasCompradas = [] 
+    const property cosasCompradas = [] 
 
     //################################################################################
 
@@ -22,13 +22,13 @@ object casaDePepeYJulian {
     //################################################################################
 
     method tieneAlgun(categoria){
-        return cosasCompradas.any({cosa => cosa.esDeCategoria(categoria)})
+        return cosasCompradas.any({cosa => cosa.categoria() == categoria})
     }
 
     //################################################################################
 
     method vieneDeComprar(categoria){
-        return self.compraronAlgo() && cosasCompradas.last().esDeCategoria(categoria)
+        return self.compraronAlgo() && cosasCompradas.last().categoria() == categoria
     }
 
     method compraronAlgo() {
@@ -56,21 +56,21 @@ object casaDePepeYJulian {
     }
 
     method precioDeCompraMasCara() {
-        if(self.compraronAlgo()) {
-            return cosasCompradas.max({cosa => cosa.precio()})
-        } else { return 0 }
+        return if(self.compraronAlgo()) {
+                    cosasCompradas.max({cosa => cosa.precio()})
+               } else 0
     }
 
     //################################################################################
 
     method comprados(categoria){
-        return cosasCompradas.filter({cosa => cosa.esDeCategoria(categoria)})
+        return cosasCompradas.filter({cosa => cosa.categoria() == categoria})
     }
 
     //################################################################################
 
     method malaEpoca(){
-        return cosasCompradas.all({cosa => cosa.esDeCategoria(comida)})
+        return self.cantidadDeComidaComprada() == cosasCompradas.size()
     }
 
     //################################################################################
@@ -79,8 +79,8 @@ object casaDePepeYJulian {
         return lista.filter({cosa => not self.seCompro(cosa)})
     }
 
-    method seCompro(cosaABuscar) {
-        return cosasCompradas.any({cosa => cosa == cosaABuscar})
+    method seCompro(cosa) {
+        return cosasCompradas.contains(cosa)
     }
 
     //################################################################################
@@ -90,11 +90,7 @@ object casaDePepeYJulian {
     }
 
     method cantidadDeComidaComprada() {
-        return self.comidaComprada().size()
-    }
-
-    method comidaComprada(){
-        return cosasCompradas.filter({cosa => cosa.esDeCategoria(comida)})
+        return self.comprados(comida).size()
     }
 
     //################################################################################

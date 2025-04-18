@@ -10,23 +10,48 @@ describe "Casa de Pepe y Julián" {
     }
 
     test "1er test planteado en la consigna" {
+
+        // La lista de las cosas compradas es heladera, cama y plancha.
         assert.equals([heladera, cama, plancha], casaDePepeYJulian.cosasCompradas())
+
+        // Cantidad de cosas compradas es 3.
         assert.equals(3, casaDePepeYJulian.cantidadDeCosasCompradas())
+        
+        // Tiene algún electrodoméstico.
         assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
+        
+        // Tiene algún mueble.
         assert.that(casaDePepeYJulian.tieneAlgun(mueble))
 
+        // No tiene alguna comida.
         assert.notThat(casaDePepeYJulian.tieneAlgun(comida)) 
+        
+        // Si le preguntan si viene de comprar un electrodoméstico dice que sí, pero si le preguntan si viene de comprar un mueble dice que no.
         assert.that(casaDePepeYJulian.vieneDeComprar(electrodomestico))      
         assert.notThat(casaDePepeYJulian.vieneDeComprar(mueble))
+        
+        // Es derrochona (ya que gastó 29200).
         assert.that(casaDePepeYJulian.esDerrochona())
         
+        // Los electrodomésticos compramos son la heladera y la plancha.
         assert.equals([heladera, plancha], casaDePepeYJulian.comprados(electrodomestico))      
+        
+        // Los muebles comprados son: la cama y nada más.
         assert.equals([cama], casaDePepeYJulian.comprados(mueble))      
+        
+        // No hay comida comprada.
         assert.equals([], casaDePepeYJulian.comprados(comida))
+        
+        // No es una mala época.
         assert.notThat(casaDePepeYJulian.malaEpoca())
         
+        // Si le preguntamos que falta comprar de una tira de asado, una plancha y un paquete de fideos debe contestar que falta la tira de asado y el paquete de fideos.
         assert.equals([tiraDeAsado, paqueteDeFideos], casaDePepeYJulian.queFaltaComprar([tiraDeAsado, plancha, paqueteDeFideos]))
+        
+        // Falta comida.
         assert.that(casaDePepeYJulian.faltaComida())
+        
+        // Las categorías compradas son electrodoméstico y mueble.
         assert.equals(#{electrodomestico, mueble}, casaDePepeYJulian.categoriasCompradas())
     }
 }
