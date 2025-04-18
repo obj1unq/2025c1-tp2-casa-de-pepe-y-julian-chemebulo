@@ -1,7 +1,8 @@
 import cosas.* 
 
 object casaDePepeYJulian {
-    const property cosasCompradas = [] 
+    const property cosasCompradas = []
+    var property cuentaActual = cuentaCorriente
 
     //################################################################################
 
@@ -10,7 +11,8 @@ object casaDePepeYJulian {
     }
 
     method comprar(cosa){
-        return cosasCompradas.add(cosa)
+        cosasCompradas.add(cosa)
+        cuentaActual.extraer(cosa.precio())
     }
 
     //################################################################################
@@ -97,5 +99,55 @@ object casaDePepeYJulian {
 
     method categoriasCompradas(){
         return cosasCompradas.map({cosa => cosa.categoria()}).asSet()
+    }
+}
+
+
+object cuentaCorriente {
+
+    var saldo = 20 // Inicializado con 20, pero es posible modificarlo con "depositar(cantidad)".
+
+    method saldo() {
+        return saldo
+    }
+
+    method depositar(cantidad) {
+        saldo += cantidad
+    }
+
+    method extraer(cantidad) {
+        self.validarSiPuedeExtraer(cantidad)
+        saldo -= cantidad
+    }
+
+    method validarSiPuedeExtraer(cantidad) {
+        if (self.saldo() < cantidad) {
+            self.error("No hay suficiente plata en la cuenta.")
+        }
+    }
+}
+
+object cuentaConGastos {
+
+    var property costoPorOperacion = 20
+    var saldo = 500 // Inicializado con 500, pero es posible modificarlo con "depositar(cantidad)", aunque no más de 1000 por depósito.
+
+    method saldo() {
+        return saldo
+    }
+
+    method depositar(cantidad) {
+        self.validarSiPuedeDepositar(cantidad)
+        saldo += cantidad - costoPorOperacion
+    }
+
+    method validarSiPuedeDepositar(cantidad) {
+        if (cantidad > 1000) {
+            self.error("No se puede depositar más de 1000 en un despósito.")
+        }
+    }
+
+    method extraer(cantidad) {
+        saldo -= cantidad
     }
 }
