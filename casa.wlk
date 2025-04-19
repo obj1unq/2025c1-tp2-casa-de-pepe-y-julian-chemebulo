@@ -5,7 +5,7 @@ object casaDePepeYJulian {
   var property cuentaActual = cuentaCorriente
   
   //################################################################################
-  
+
   method cosasCompradas() = cosasCompradas
   
   method comprar(cosa) {
@@ -60,6 +60,8 @@ object casaDePepeYJulian {
 
   method malaEpoca() = self.cantidadDeComidaComprada() == cosasCompradas.size()
   
+  method cantidadDeComidaComprada() = self.comprados(comida).size()
+
   //################################################################################
 
   method queFaltaComprar(lista) = lista.filter(
@@ -71,9 +73,7 @@ object casaDePepeYJulian {
   //################################################################################
 
   method faltaComida() = self.cantidadDeComidaComprada() < 2
-  
-  method cantidadDeComidaComprada() = self.comprados(comida).size()
-  
+    
   //################################################################################
 
   method categoriasCompradas() = cosasCompradas.map(
