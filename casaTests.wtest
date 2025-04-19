@@ -62,7 +62,7 @@ describe "Casa de Pepe y Julián" {
     )
   }
   
-  test "2do test planteado en la consigna" {
+  test "Probando las funcionalidades de cuenta corriente y cuenta con gastos." {
     // Si la cuenta tiene 20 de saldo, si se deposita 1000 pesos, el saldo queda en 1020 pesos, si luego se extre 50 queda en 970 pesos. Si se intenta extraer 2000 debería lanzar error ya que no se puede cumplir la responsabilidad.
     cuentaCorriente.depositar(1000)
     assert.equals(1020, cuentaCorriente.saldo())
@@ -80,5 +80,13 @@ describe "Casa de Pepe y Julián" {
     assert.equals(1450, cuentaConGastos.saldo())
     cuentaConGastos.extraer(2000)
     assert.equals(-550, cuentaConGastos.saldo())
+  }
+
+  test "Probando que al comprar una cosa se vea afectado en la cuenta elegida." {
+    casaDePepeYJulian.cuentaActual().depositar(980)
+    assert.equals(1000, casaDePepeYJulian.cuentaActual().saldo())
+    casaDePepeYJulian.comprar(tiraDeAsado)
+    casaDePepeYJulian.comprar(paqueteDeFideos)
+    assert.equals(600, casaDePepeYJulian.cuentaActual().saldo())
   }
 }
