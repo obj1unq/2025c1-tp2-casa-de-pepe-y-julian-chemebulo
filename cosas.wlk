@@ -1,8 +1,14 @@
-object electrodomestico {}
+object electrodomestico {
+	
+}
 
-object mueble {}
+object mueble {
+	
+}
 
-object comida {}
+object comida {
+	
+}
 
 //########################################### COSAS ###########################################
 
