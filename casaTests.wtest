@@ -2,9 +2,9 @@ import casa.*
 import cosas.*
 
 describe "Casa de Pepe y Julián" {
-  test "1er test planteado en la consigna" {
+  test "Probando el funcionamiento de los mensajes de la casa de Pepe y Julián." {
     // Inicializacion del primer test.
-    casaDePepeYJulian.cuentaActual(cuentaConGastos)
+    casaDePepeYJulian.cuentaActual(cuentaConGastos) // Le puse esta cuenta porque admite saldo negativo, sino tendría que haber agregado saldo.
     casaDePepeYJulian.comprar(heladera)
     casaDePepeYJulian.comprar(cama)
     casaDePepeYJulian.comprar(plancha)
