@@ -89,4 +89,24 @@ describe "Casa de Pepe y Julián" {
     casaDePepeYJulian.comprar(paqueteDeFideos)
     assert.equals(600, casaDePepeYJulian.cuentaActual().saldo())
   }
+
+  test "Pruebas de funcionamiento adicionales." {
+    // Verifico que al querer comprar algo en una cuenta corriente sin saldo, lanza una excepción. Por ende, mi saldo inicial no se modifica ($20).
+    casaDePepeYJulian.cuentaActual(cuentaCorriente)
+    assert.throwsException({casaDePepeYJulian.comprar(heladera)})
+    assert.equals(20, casaDePepeYJulian.cuentaActual().saldo())  
+
+    // Verifico que puedo depositar la cantidad de pesos que quiera en la cuenta corriente, por ejemplo, $1.000.000. 
+    // Resultado: $1.000.020 porque ya habían $20 depositados anteriormente.
+    cuentaCorriente.depositar(1000000)
+    assert.equals(1000020, cuentaCorriente.saldo())  
+  
+    // Verifico que no puedo depositar 1001 pesos en un solo depósito en la cuenta con gastos. Por ende, mi saldo inicial no se modifica ($500).
+    assert.throwsException({cuentaConGastos.depositar(1001)})
+    assert.equals(500, cuentaConGastos.saldo())
+
+    // Verifico que puedo extraer la cantidad de pesos que quiera en la cuenta con gastos, por ejemplo, $500.000. Resultado: -$499.500 porque ya habían $500 depositados anteriormente.
+    cuentaConGastos.extraer(500000)
+    assert.equals(-499500, cuentaConGastos.saldo())  
+  }
 }

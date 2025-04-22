@@ -6,11 +6,9 @@ object casaDePepeYJulian {
   
   //################################################################################
 
-  method cosasCompradas() = cosasCompradas
-  
   method comprar(cosa) {
-    cosasCompradas.add(cosa)
     cuentaActual.extraer(cosa.precio())
+    cosasCompradas.add(cosa)
   }
   
   //################################################################################
@@ -33,9 +31,9 @@ object casaDePepeYJulian {
   
   //################################################################################
 
-  method esDerrochona() = self.totalDeCosasCompradas() >= 9000
+  method esDerrochona() = self.precioTotalDeCosasCompradas() >= 9000
   
-  method totalDeCosasCompradas() = cosasCompradas.sum({ cosa => cosa.precio() })
+  method precioTotalDeCosasCompradas() = cosasCompradas.sum({ cosa => cosa.precio() })
   
   //################################################################################ 
 
@@ -45,11 +43,13 @@ object casaDePepeYJulian {
   
   method esCompraMasCara(cosa) = cosa.precio() == self.precioDeCompraMasCara()
   
-  method precioDeCompraMasCara() = if (self.compraronAlgo()) cosasCompradas.max(
+  method precioDeCompraMasCara() = self.cosaMasCaraEnLaLista().precio()
+  
+  method cosaMasCaraEnLaLista() = if (self.compraronAlgo()) cosasCompradas.max(
                                        { cosa => cosa.precio() }
                                      )
                                    else 0
-  
+
   //################################################################################
 
   method comprados(categoria) = cosasCompradas.filter(
@@ -58,9 +58,7 @@ object casaDePepeYJulian {
   
   //################################################################################
 
-  method malaEpoca() = self.cantidadDeComidaComprada() == cosasCompradas.size()
-  
-  method cantidadDeComidaComprada() = self.comprados(comida).size()
+  method malaEpoca() = cosasCompradas.all({cosa => cosa.esUnaComida()}) 
 
   //################################################################################
 
@@ -74,6 +72,8 @@ object casaDePepeYJulian {
 
   method faltaComida() = self.cantidadDeComidaComprada() < 2
     
+  method cantidadDeComidaComprada() = self.comprados(comida).size()
+  
   //################################################################################
 
   method categoriasCompradas() = cosasCompradas.map(
