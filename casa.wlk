@@ -43,12 +43,11 @@ object casaDePepeYJulian {
   
   method esCompraMasCara(cosa) = cosa.precio() == self.precioDeCompraMasCara()
   
-  method precioDeCompraMasCara() = self.cosaMasCaraEnLaLista().precio()
-  
-  method cosaMasCaraEnLaLista() = if (self.compraronAlgo()) cosasCompradas.max(
-                                       { cosa => cosa.precio() }
-                                     )
+  method precioDeCompraMasCara() = if (self.compraronAlgo()) 
+                                    self.cosaMasCaraEnLaLista().precio()
                                    else 0
+  
+  method cosaMasCaraEnLaLista() = cosasCompradas.max({cosa => cosa.precio()})
 
   //################################################################################
 
